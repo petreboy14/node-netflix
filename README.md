@@ -16,7 +16,9 @@ To run the tests included with this module create a file in the test directory n
 ```
 
 Then run the tests by first installing the development dependencies:
-	$ npm install
+
+    $ npm install
 
 then run the tests: 
-	$ mocha
+
+    $ mocha
