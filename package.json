@@ -1,0 +1,18 @@
+{
+	"name": "node-netflix",
+	"description": "Implementation of the Netflix API in Node.js",
+	"keywords": ["netflix", "movies", "tv", "streaming"],
+	"version": "0.0.1",
+	"author": "Peter Henning <petreboy14@gmail.com>",
+	"main": "./index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/petreboy14/node-netflix"
+	},
+	"dependencies": {
+		"xml2js": "latest"
+	},
+	"engines": {
+		"node": "*"
+	}
+}
