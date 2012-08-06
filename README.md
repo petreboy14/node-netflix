@@ -7,7 +7,7 @@ An implementation of the Netflix API for Node.js
 Testing
 =======
 
-To run the tests included with this module create a file in the test directory named auth.json and add this JSON object:
+To run the tests included with this module create a file in the test directory named `auth.json` and add this JSON object:
 ```js
 {
 	"key": "YOUR NETFLIX API KEY",
