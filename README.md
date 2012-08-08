@@ -1,7 +1,7 @@
 node-netflix
 ============
 
-An implementation of the Netflix API for Node.js
+An implementation of the Netflix API for Node.js. This is a wrapper around the main functionalities that are provided by Netflix such as searching movie titles or updating user account options. This is meant to be used by developers who want to access the Netflix API with a Node.js backend. This module uses optional caching and persistence techniques to provide fast response time for client applications whilst decreasing the number of required API lookups. 
 
 ## Installation
 
@@ -33,7 +33,7 @@ The options parameter should be an object which can take these parameters:
   - `user`: string. A username who has access to the database. This can be left blank if guest has access.
   - `password`: string. The password for the user if one is specified.
 
-The caching and persistence options in the configuration are set to false by default because I don't want to assume that the user of this module will want all the power of storing movie data in caches or databases but they are recommended to be both confgured for performance reasons. The details of what is persisted and/or cached and why are described below in their respective sections.
+The caching and persistence options in the configuration are set to false by default because I don't want to assume that the user of this module will want all the power of storing movie data in caches or databases but they are recommended to be both configured for optimal performance. The details of what is persisted and/or cached and why are described below in their respective sections.
 
 ## Usage
 
