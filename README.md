@@ -55,7 +55,7 @@ To run the tests included with this module create a file in the test directory n
 }
 ```
 
-Then run the tests by first installing the development dependencies:
+Then run the tests by first installing the development dependencies after entering the modules directory:
 
     $ npm install
 
