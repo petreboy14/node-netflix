@@ -4,6 +4,8 @@ var parser = new xml2js.Parser();
 
 var requestor = require('./libs/requestor');
 
+var cacher = require('./libs/cacher');
+
 // Listing of all allowed Netflix API commands
 var RESOURCES = {
 	SEARCH: {
@@ -17,6 +19,10 @@ var RESOURCES = {
 		},
 		INSTANT_WATCH: {
 			path: "catalog/titles/index",
+			method: "GET"
+		},
+		AUTOCOMPLETE: {
+			path: "catalog/titles/autocomplete",
 			method: "GET"
 		}
 	},
@@ -41,34 +47,89 @@ var netflix = (function() {
 		_conf.key = conf.key;
 	};
 
+	var requestOAuthToken = function(cb) {
+		requestor.runRequest(RESOURCES.TOKEN.GET_OAUTH_TOKEN, _conf, {}, function(error, result) {
+			if (error) {
+				cb(error);
+			} else {
+				switch(result) {
+					case "Missing Required Consumer Key":
+						cb(new Error("Missing Required Consumer Key"));
+						break;
+					case "Invalid Signature":
+						cb(new Error("Invalid Signature"));
+						break;
+					default:
+						var tokenObj = {};
+						var ret = result.split("&");
+						for (var i = 0; i < ret.length; i++) {
+							tokenObj[ret[i].split("=")[0]] = ret[i].split("=")[1];
+						}
+						cb(null, tokenObj);
+						break;
+				}
+			}
+		});
+	};
+
+	var runAutocomplete = function(title, cb) {
+		if (typeof(title) !== "string" || title.length <= 2) {
+			throw new Error("runAutocomplete title should be a valid string of length at least 2 characters");
+		}
+
+		// First check if the cache contains the autocomplete data so we don't have to hit Netflix everytime
+		cacher.getCache("autocomplete", title.toUpperCase(), function(error, result) {
+			if (error) {
+				cb(error);
+			} else if (result) {
+				cb(null, {titles: result, cached: true});
+			} else {
+				requestor.runRequest(RESOURCES.SEARCH.AUTOCOMPLETE, _conf, {term: title}, function(error, result) {
+					if (error) {
+						cb(error);
+					} else {
+						parser.parseString(result, function(error, result) {
+							if (result.hasOwnProperty("autocomplete_item")) {
+								result = result.autocomplete_item;
+							
+								var titles = [];
+								for (var i = 0, len = result.length; i < len; i++) {
+									titles.push(result[i].title["@"].short);
+								}
+
+								cacher.setCache("autocomplete", title.toUpperCase(), titles, function(error, result) {
+									cb(error, {titles: titles, cached: false});
+								});
+							} else {
+								cb(new Error("Autcomplete found no results"));	
+							}
+						
+						});
+					}
+				});
+			}
+		});
+	};
+
+	var searchByTitle = function(data, cb) {
+
+	}
+
 	return {
 		config: function(conf) {
 			setConfig(conf);
 		},
 
+		autocomplete: function(title, cb) {
+			runAutocomplete(title, cb);
+		},
+
 		reqOAuthToken: function(cb) {
-			requestor.runRequest(RESOURCES.TOKEN.GET_OAUTH_TOKEN, _conf, {}, function(error, result) {
-				if (error) {
-					cb(error);
-				} else {
-					switch(result) {
-						case "Missing Required Consumer Key":
-							cb(new Error("Missing Required Consumer Key"));
-							break;
-						case "Invalid Signature":
-							cb(new Error("Invalid Signature"));
-							break;
-						default:
-							var tokenObj = {};
-							var ret = result.split("&");
-							for (var i = 0; i < ret.length; i++) {
-								tokenObj[ret[i].split("=")[0]] = ret[i].split("=")[1];
-							}
-							cb(null, tokenObj);
-							break;
-					}
-				}
-			});
+			requestOAuthToken(cb);
+		},
+
+		searchTitle: function(data, cb) {
+			searchByTitle(data, cb);
 		}
 	};
 })();

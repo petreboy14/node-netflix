@@ -10,7 +10,9 @@
 		"url": "https://github.com/petreboy14/node-netflix"
 	},
 	"dependencies": {
-		"xml2js": "latest"
+		"xml2js": "latest",
+		"redis": "latest",
+		"hiredis": "latest"
 	},
 	"devDependencies": {
 		"mocha": "latest",
