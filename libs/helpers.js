@@ -9,7 +9,7 @@ exports.getSignature = function(resource, params, sharedSecret) {
 	var paramString = "";
 	for (var param in params) {
 		if (params.hasOwnProperty(param)) {
-			paramString += param + "=" + params[param] + "&";
+			paramString += param + "=" + oAuthEscape(params[param]) + "&";
 		}
 	}
 
@@ -27,7 +27,7 @@ exports.buildPath = function(resource, params, signature) {
 
 	for (var param in params) {
 		if (params.hasOwnProperty(param)) {
-			finalURL += param + "=" + params[param] + "&";
+			finalURL += param + "=" + oAuthEscape(params[param]) + "&";
 		}
 	}
 

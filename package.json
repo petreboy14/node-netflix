@@ -12,7 +12,8 @@
 	"dependencies": {
 		"xml2js": "latest",
 		"redis": "latest",
-		"hiredis": "latest"
+		"hiredis": "latest",
+		"async": "latest"
 	},
 	"devDependencies": {
 		"mocha": "latest",

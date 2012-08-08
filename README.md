@@ -10,6 +10,15 @@ Install with:
 
     npm install node-netflix
 
+Then the module can be used in the normal manner by requiring it:
+
+    var netflix = require('node-netflix');
+
+Configuration
+=============
+
+Upon 
+
 Usage
 =====
 

@@ -161,11 +161,35 @@ describe("Netflix Tests", function() {
 		});
 
 		describe("Title Searches", function() {
-			it("should be able to search by title");
+			it("should be able to search by title", function(done) {
+				netflix.searchTitle("Harry Potter and the Deathly Hallows: Part II", function(error, result) {
+					if (error) {
+						done(error);
+					} else {
+						util.log(util.inspect(result, false, 5));
+						done();
+					}
+				})
+			});
 		});
 
 		describe("People searches", function() {
 			it("should be able to search by actors/directors");
+		});
+	});
+
+	describe("Retrieval Tests", function() {
+		describe("Getting a movie by its id", function() {
+			it("should return data for a movie by its id", function(done) {
+				netflix.getTitle(70120085, function(error, result) {
+					if (error) {
+						done(error);
+					} else {
+						util.log(util.inspect(result, false, 5));
+						done();
+					}
+				});
+			});
 		});
 	});
 

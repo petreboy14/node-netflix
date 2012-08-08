@@ -26,6 +26,12 @@ var RESOURCES = {
 			method: "GET"
 		}
 	},
+	TITLES: {
+		GET_TITLE: {
+			path: "catalog/titles/movies",
+			method: "GET"
+		}
+	},
 	TOKEN: {
 		GET_OAUTH_TOKEN: {
 			path: "oauth/request_token",
@@ -111,9 +117,53 @@ var netflix = (function() {
 		});
 	};
 
-	var searchByTitle = function(data, cb) {
+	var searchByTitle = function(options, cb) {
+		if (typeof(options) === "undefined") {
+			throw new Error("searchByTitle should contain at least an options parameter");
+		} else if (typeof(options) === "string") {
+			options = {title: options};
+		}
 
-	}
+		if (!options.hasOwnProperty("title")) {
+			throw new Error("options passed to searchByTitle should at least contain a title param");
+		}
+
+		cacher.getCache("title", options.title.toUpperCase(), function(error, result) {
+			if (error) {
+				cb(error);
+			} else if (result) {
+				cb(null, {media: result, cached: true});
+			} else {
+				requestor.runRequest(RESOURCES.SEARCH.TITLES, _conf, {term: options.title, max_results: 10}, function(error, result) {
+					if (error) {
+						cb(error);
+					} else {
+						parser.parseString(result, function(error, result) {
+							cb(error, result);
+						});
+					}
+				});
+			}
+		});
+		
+	};
+
+	var _getTitle = function(id, cb) {
+		if (typeof(id) === "undefined") {
+			throw new Error("_getTitle requires a id");
+		}
+
+		var path = RESOURCES.TITLES.GET_TITLE.path + "/" + id + "/synopsis";
+		requestor.runRequest({path: path, method: "GET"}, _conf, {}, function(error, result) {
+			if (error) {
+				cb(error);
+			} else {
+				parser.parseString(result, function(error, result) {
+					cb(error, result);
+				});
+			}
+		});
+	};
 
 	return {
 		config: function(conf) {
@@ -130,6 +180,10 @@ var netflix = (function() {
 
 		searchTitle: function(data, cb) {
 			searchByTitle(data, cb);
+		},
+
+		getTitle: function(id, cb) {
+			_getTitle(id, cb);
 		}
 	};
 })();
