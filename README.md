@@ -15,7 +15,28 @@ Then the module can be used in the normal manner by requiring it:
 
 ## Configuration
 
-The first thing that should be done after requireing the node-netflix module is setting configuring it with your API application key and shared secret key which is given to you when you register your application with Netflix at [http://developer.netflix.com](http://developer.netflix.com).
+The first thing that should be done after requiring the node-netflix module is setting configuring it with your API application key and shared secret key which is given to you when you register your application with Netflix at [http://developer.netflix.com](http://developer.netflix.com):
+
+    netflix.conf(options)
+
+The options parameter should be an object which can take these parameters:
+
+- `key`: required, string
+    This is the API application key that was assigned to the application you are developing at the Netflix developer site.
+- `sharedSecret`: required, string
+    This is the shared secret key also given you at the Netflix developer site.
+- `caching`: object/boolean, default false
+- `persistence`: boolean, default false
+  This option is to enable persistence of show information to an external database. For the sake of finishing this module, it will be hardcoded to only work on MongoDB (as that is what the app is being developed with) but later in the future I will abstract persistence to multiple datastores. If passed on object the parameters for correct execution are:
+  - `connString`: required, string/array
+    This is your connection string to your database server/servers.
+  - `dbName`: required, string
+    The name of the database for this module to connect to.
+  - `user`: string
+    A username who has access to the database. This can be left blank if guest has access.
+  - `password`: string
+    The password for the user if one is specified.
+
 
 ## Usage
 
