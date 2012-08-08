@@ -10,6 +10,10 @@ Install with:
 
     npm install node-netflix
 
+Usage
+=====
+
+This section will explain how to use this module... Coming soon...
 
 Caching
 =======
