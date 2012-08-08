@@ -3,8 +3,7 @@ node-netflix
 
 An implementation of the Netflix API for Node.js
 
-Installation
-============
+## Installation
 
 Install with:
 
@@ -14,25 +13,21 @@ Then the module can be used in the normal manner by requiring it:
 
     var netflix = require('node-netflix');
 
-Configuration
-=============
+## Configuration
 
-Upon 
+The first thing that should be done after requireing the node-netflix module is setting configuring it with your API application key and shared secret key which is given to you when you register your application with Netflix at [http://developer.netflix.com](http://developer.netflix.com).
 
-Usage
-=====
+## Usage
 
 This section will explain how to use this module... Coming soon...
 
-Caching
-=======
+## Caching
 
 This module uses caching to speed up the process of retrieving results from the Netflix catalog. This is a work in progress but the jist is that all searches for movie titles, autocompletions, searching by actor, etc. will be stored in an expiration cache so that subsequent requests will not require another call to the Netflix API (and eat up requests per day). As of now the cache is backed by Redis but I will probably create an optional in-app cache and/or MongoDB cache for those who don't want to use Redis. 
 
 All items stored in cache currently will expire in 30 minutes to avoid bloat but I will later add an option to turn this off. 
 
-Testing
-=======
+## Testing
 
 To run the tests included with this module create a file in the test directory named `auth.json` and add this JSON object:
 ```js
