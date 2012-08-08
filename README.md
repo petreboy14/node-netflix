@@ -39,4 +39,4 @@ Then run the tests by first installing the development dependencies:
 
 then run the tests: 
 
-    $ mocha
+    $ mocha -R spec
