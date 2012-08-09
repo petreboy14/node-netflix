@@ -179,7 +179,7 @@ describe("Netflix Tests", function() {
 	});
 
 	describe("Retrieval Tests", function() {
-		describe("Getting a movie by its id", function() {
+		describe("Getting a movie's general info by its id", function() {
 			it("should return data for a movie by its id", function(done) {
 				netflix.getTitle(70120085, function(error, result) {
 					if (error) {
