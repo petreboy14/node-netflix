@@ -37,6 +37,9 @@ The caching and persistence options in the configuration are set to false by def
 
 ## Usage
 
+Searching
+=========
+
 This section will explain how to use this module... Coming soon...
 
 ## Caching
