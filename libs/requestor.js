@@ -74,6 +74,8 @@ exports.runRequest = function(resource, auth, options, cb) {
 		path: path
 	};
 
+	console.log(path);
+
 	// Run the final request and return result to user
 	var req = http.request(httpOptions, function(res) {
 		var data = "";
