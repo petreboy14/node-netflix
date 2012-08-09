@@ -1,7 +1,7 @@
 node-netflix
 ============
 
-[![Build Status](https://secure.travis-ci.org/petreboy14/node-netflix)](http://travis-ci.org/petreboy14/node-netflix)
+[![Build Status](https://secure.travis-ci.org/petreboy14/node-netflix.png)](http://travis-ci.org/petreboy14/node-netflix)
 
 An implementation of the Netflix API for Node.js. This is a wrapper around the main functionalities that are provided by Netflix such as searching movie titles or updating user account options. This is meant to be used by developers who want to access the Netflix API with a Node.js backend. This module uses optional caching and persistence techniques to provide fast response time for client applications whilst decreasing the number of required API lookups. 
 
