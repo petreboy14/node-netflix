@@ -94,9 +94,8 @@ var netflix = (function() {
 					if (error) {
 						cb(error);
 					} else {
-						console.log(error);
-						console.log(result);
 						parser.parseString(result, function(error, result) {
+							console.log(result);
 							if (result.hasOwnProperty("autocomplete_item")) {
 								result = result.autocomplete_item;
 							
@@ -157,6 +156,7 @@ var netflix = (function() {
 
 		var path = RESOURCES.TITLES.GET_TITLE.path + "/" + id + "/synopsis";
 		requestor.runRequest({path: path, method: "GET"}, _conf, {}, function(error, result) {
+			console.log(result);
 			if (error) {
 				cb(error);
 			} else {
