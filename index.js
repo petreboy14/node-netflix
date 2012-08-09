@@ -94,6 +94,8 @@ var netflix = (function() {
 					if (error) {
 						cb(error);
 					} else {
+						console.log(error);
+						console.log(result);
 						parser.parseString(result, function(error, result) {
 							if (result.hasOwnProperty("autocomplete_item")) {
 								result = result.autocomplete_item;
