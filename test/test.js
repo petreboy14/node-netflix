@@ -166,7 +166,6 @@ describe("Netflix Tests", function() {
 					if (error) {
 						done(error);
 					} else {
-						util.log(util.inspect(result, false, 5));
 						done();
 					}
 				})
@@ -185,7 +184,6 @@ describe("Netflix Tests", function() {
 					if (error) {
 						done(error);
 					} else {
-						util.log(util.inspect(result, false, 5));
 						done();
 					}
 				});
