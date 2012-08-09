@@ -88,6 +88,7 @@ exports.runRequest = function(resource, auth, options, cb) {
 
 		// Handle the final data
 		res.on("end", function() { 
+			console.log(data);
 			cb(null, data);
 		});
 	});

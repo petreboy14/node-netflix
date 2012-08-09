@@ -192,6 +192,7 @@ describe("Netflix Tests", function() {
 	});
 
 	after(function(done) {
+		console.log("here");
 		cacher.delCache("multi", ["autocomplete-HARRY", "autocomplete-harr"], function(error, result) {
 			if (error) {
 				done(error);
